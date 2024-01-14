@@ -14,9 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package cassandradatastaxcom
+package autoscaling
 
 import (
+	cassandradatastaxcomv1beta1 "github.com/k8ssandra/cass-operator/apis/autoscaling/v1beta1"
 	"path/filepath"
 	"testing"
 
@@ -29,8 +30,6 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/envtest"
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
-
-	cassandradatastaxcomv1beta1 "github.com/k8ssandra/cass-operator/api/cassandra.datastax.com/v1beta1"
 	//+kubebuilder:scaffold:imports
 )
 

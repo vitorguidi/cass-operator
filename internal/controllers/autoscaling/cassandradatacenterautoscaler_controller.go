@@ -14,17 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package cassandradatastaxcom
+package autoscaling
 
 import (
 	"context"
+	"fmt"
+	cassandradatastaxcomv1beta1 "github.com/k8ssandra/cass-operator/apis/autoscaling/v1beta1"
 
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/log"
-
-	cassandradatastaxcomv1beta1 "github.com/k8ssandra/cass-operator/api/cassandra.datastax.com/v1beta1"
 )
 
 // CassandraDataCenterAutoscalerReconciler reconciles a CassandraDataCenterAutoscaler object
@@ -50,8 +50,14 @@ func (r *CassandraDataCenterAutoscalerReconciler) Reconcile(ctx context.Context,
 	logger := log.FromContext(ctx)
 
 	logger.Info("Bem vindo ao maravilhoso mundo de autoscaling. Recebi o evento do recurso %s", "resource name", req.NamespacedName)
+	autoscaler := &cassandradatastaxcomv1beta1.CassandraDataCenterAutoscaler{}
+	err := r.Get(ctx, req.NamespacedName, autoscaler)
+	if err != nil {
+		logger.Error(err, "Could not find autoscaler crd in question", "namespaced name", req.NamespacedName)
+		return ctrl.Result{}, err
+	}
 	// TODO(user): your logic here
-
+	logger.Info(fmt.Sprintf("Datacenter Ref = %s", autoscaler.Spec.CassandraDatacenterRef))
 	return ctrl.Result{}, nil
 }
 

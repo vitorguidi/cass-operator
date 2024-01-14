@@ -27,7 +27,7 @@ import (
 type CassandraDataCenterAutoscalerSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
+	CassandraDatacenterRef string `json:"cassandraDatacenterRef,omitempty"`
 	// Foo is an example field of CassandraDataCenterAutoscaler. Edit cassandradatacenterautoscaler_types.go to remove/update
 	Foo string `json:"foo,omitempty"`
 }

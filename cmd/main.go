@@ -18,6 +18,8 @@ package main
 
 import (
 	"flag"
+	cassandradatastaxcomv1beta1 "github.com/k8ssandra/cass-operator/apis/autoscaling/v1beta1"
+	cassandradatastaxcomcontroller "github.com/k8ssandra/cass-operator/internal/controllers/autoscaling"
 	"os"
 	"strings"
 
@@ -34,11 +36,9 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	cassandradatastaxcomv1beta1 "github.com/k8ssandra/cass-operator/api/cassandra.datastax.com/v1beta1"
 	api "github.com/k8ssandra/cass-operator/apis/cassandra/v1beta1"
 	configv1beta1 "github.com/k8ssandra/cass-operator/apis/config/v1beta1"
 	controlv1alpha1 "github.com/k8ssandra/cass-operator/apis/control/v1alpha1"
-	cassandradatastaxcomcontroller "github.com/k8ssandra/cass-operator/internal/controller/cassandra.datastax.com"
 	controllers "github.com/k8ssandra/cass-operator/internal/controllers/cassandra"
 	controlcontrollers "github.com/k8ssandra/cass-operator/internal/controllers/control"
 	"github.com/k8ssandra/cass-operator/pkg/images"

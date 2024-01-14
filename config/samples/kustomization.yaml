@@ -2,4 +2,5 @@
 resources:
 - example-cassdc-three-nodes-single-rack.yaml
 - cassandratask-cleanup.yaml
+- cassandra.datastax.com_v1beta1_cassandradatacenterautoscaler.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples

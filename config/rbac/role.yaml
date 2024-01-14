@@ -5,6 +5,32 @@ metadata:
   name: manager-role
 rules:
 - apiGroups:
+  - cassandra.datastax.com.cassandra.datastax.com
+  resources:
+  - cassandradatacenterautoscalers
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cassandra.datastax.com.cassandra.datastax.com
+  resources:
+  - cassandradatacenterautoscalers/finalizers
+  verbs:
+  - update
+- apiGroups:
+  - cassandra.datastax.com.cassandra.datastax.com
+  resources:
+  - cassandradatacenterautoscalers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
   - ""
   resources:
   - nodes

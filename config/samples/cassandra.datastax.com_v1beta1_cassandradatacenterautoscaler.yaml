@@ -1,0 +1,12 @@
+apiVersion: cassandra.datastax.com.cassandra.datastax.com/v1beta1
+kind: CassandraDataCenterAutoscaler
+metadata:
+  labels:
+    app.kubernetes.io/name: cassandradatacenterautoscaler
+    app.kubernetes.io/instance: cassandradatacenterautoscaler-sample
+    app.kubernetes.io/part-of: cass-operator
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/created-by: cass-operator
+  name: cassandradatacenterautoscaler-sample
+spec:
+  # TODO(user): Add fields here

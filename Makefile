@@ -160,7 +160,7 @@ run: manifests generate fmt vet ## Run a controller from your host.
 
 .PHONY: debug
 debug: manifests build
-	dlv --listen=:2345 --headless=true --api-version=2 exec ./bin/manager
+	dlv --listen=:2345 --headless=true --api-version=2 exec ./bin/manager -- --config=./config/manager/controller_manager_config.yaml
 
 .PHONY: docker-build
 docker-build: ## Build docker image with the manager.

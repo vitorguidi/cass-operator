@@ -158,6 +158,10 @@ build: generate fmt vet ## Build manager binary.
 run: manifests generate fmt vet ## Run a controller from your host.
 	go run ./cmd/main.go
 
+.PHONY: debug
+debug: manifests build
+	dlv --listen=:2345 --headless=true --api-version=2 exec ./bin/manager
+
 .PHONY: docker-build
 docker-build: ## Build docker image with the manager.
 	docker buildx build --build-arg VERSION=${VERSION} -t ${IMG} . --load

@@ -18,6 +18,8 @@ package main
 
 import (
 	"flag"
+	cassandradatastaxcomv1beta1 "github.com/k8ssandra/cass-operator/apis/autoscaling/v1beta1"
+	cassandradatastaxcomcontroller "github.com/k8ssandra/cass-operator/internal/controllers/autoscaling"
 	"os"
 	"strings"
 
@@ -55,6 +57,7 @@ func init() {
 	utilruntime.Must(api.AddToScheme(scheme))
 	utilruntime.Must(configv1beta1.AddToScheme(scheme))
 	utilruntime.Must(controlv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(cassandradatastaxcomv1beta1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -124,17 +127,26 @@ func main() {
 		os.Exit(1)
 	}
 
-	if !operConfig.DisableWebhooks {
-		if err = (&api.CassandraDatacenter{}).SetupWebhookWithManager(mgr); err != nil {
-			setupLog.Error(err, "unable to create webhook", "webhook", "CassandraDatacenter")
-			os.Exit(1)
+	/*
+		if !operConfig.DisableWebhooks {
+			if err = (&api.CassandraDatacenter{}).SetupWebhookWithManager(mgr); err != nil {
+				setupLog.Error(err, "unable to create webhook", "webhook", "CassandraDatacenter")
+				os.Exit(1)
+			}
 		}
-	}
+	*/
 	if err = (&controlcontrollers.CassandraTaskReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "CassandraTask")
+		os.Exit(1)
+	}
+	if err = (&cassandradatastaxcomcontroller.CassandraDataCenterAutoscalerReconciler{
+		Client: mgr.GetClient(),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "CassandraDataCenterAutoscaler")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder
